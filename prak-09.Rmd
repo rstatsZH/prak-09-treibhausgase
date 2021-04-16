@@ -22,5 +22,71 @@ library(dplyr)
 library(ggplot2)
 library(lubridate)
 library(readr)
+library(tidyr)
 
 ```
+
+# Daten
+
+Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 - 2016](https://opendata.swiss/de/dataset/treibhausgasemissionen-stadt-zurich-ohne-klimakorrektur-1990-20163/resource/0c342b77-ad97-46cf-b138-cb83decf96f3) wurde von "Stadt Zürich - Open Data" publiziert und eine detaillierte Beschreibung des Datensatzes ist hier verfügbar: https://data.stadt-zuerich.ch/dataset/ugz_treibhausgasbilanz
+
+
+# Übungen 
+
+## Daten importieren
+
+1. Öffne den Metadateneintrag für den Datensatz auf opendata.swiss
+2. Speicher die CSV Datei `ugz_treibhausgasbilanz.csv` auf deinem Arbeitsgerät indem du diese herunterlädst
+3. Öffne nun den File Manager in RStudio im Fenster unten rechts
+4. Erstelle einen neuen Ordner im Stammordner (en: root directory) und nenne diesen "data" (**Tipp:** Button 'New Folder')
+5. Lade nun die heruntergeladene CSV Datei von deinem Arbeitsgerät in die RStudio Cloud hoch (**Tipp:** Button 'Upload')
+6. Nutze die Funktion `read_csv()` um die CSV Datei in deine Arbeitsumgebung zu laden (**Tipp: Schaue im File Manager nach falls du dich nicht an den Pfad und Dateinamen erinnerst**)
+7. Speicher den geladenen Datensatz als neues Objekt mit dem Namen `ghg` in deiner Arbeitsumgebung (Environment) (**Tipp: Zuweisungsoperator: <-**)
+
+```{r}
+
+ghg <- read_csv("https://data.stadt-zuerich.ch/dataset/ugz_treibhausgasbilanz/download/ugz_treibhausgasbilanz.csv")
+
+```
+
+## Daten erkunden 
+
+1. Führe `View(ghg)` in der Konsole aus und diskutiert was die Werte in den einzelnen Variablen (Spalten) darstellen
+2. Erstelle ein verbundenes Streudiagramm mit der Variable Jahr auf der y-Achse und der Variable 
+
+```{r}
+
+ghg %>% 
+  ggplot(aes(x = Jahr, y = Fernwaerme)) +
+  geom_point() +
+  geom_path()
+
+ghg_long <- ghg %>% 
+  rename(jahr = Jahr) %>% 
+  pivot_longer(cols = !jahr, names_to = "kategorie", values_to = "emissionen") %>% 
+  group_by(jahr) %>% 
+  mutate(prozent = emissionen / sum(emissionen) * 100) %>% 
+  ungroup()
+
+
+ghg_long %>%   
+  ggplot(aes(x = jahr, y = emissionen, fill = kategorie)) +
+  geom_area() 
+
+ghg_long %>%   
+  ggplot(aes(x = jahr, y = prozent, fill = kategorie)) +
+  geom_area() 
+
+ghg_long %>% 
+  filter(jahr == max(jahr) | jahr == min(jahr)) %>% 
+  ggplot(aes(x = jahr, y = prozent, group = kategorie, color = kategorie)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_x_continuous(limits = c(1990, 2016), breaks = c(1990, 2016)) +
+  scale_color_brewer(type = "qual") +
+  theme_minimal(base_size = 16) +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+
