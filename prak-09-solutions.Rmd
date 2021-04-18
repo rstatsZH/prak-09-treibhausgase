@@ -45,6 +45,10 @@ Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 -
 
 ```{r}
 
+# Beachte: Dieser Code kann nur ausgeführt werden wenn die Daten auch in dem 
+# Ordner data mit diesem Dateinamen gespeichert wurden.
+
+ghg <- read_csv("data/ugs_treibhausgasbilanz.csv")
 
 ```
 
@@ -60,7 +64,9 @@ Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 -
 4. Strick das Dokument und dann: git add, commit, push alle Veränderung zurück auf GitHub
 
 ```{r plot1}
-
+ghg %>% 
+  ggplot(aes(x = Jahr, y = Kerosin)) +
+  geom_col()
 ```
 
 ## Übung 3 - Tidy data
@@ -80,5 +86,7 @@ Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 -
 3. Könnt ihr diesen Plot mit den Daten in dem Objekt `ghg` reproduzieren? Diskutiert und schreibt keinen Code.
 
 ```{r plot2-png}
+
 knitr::include_graphics("https://raw.githubusercontent.com/rstatsZH/data/main/plots/treibhausgasbilnaz-stadt-zuerich.png")
+
 ```
