@@ -38,8 +38,8 @@ Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 -
 2. Speicher die CSV Datei `ugz_treibhausgasbilanz.csv` auf deinem Arbeitsgerät indem du diese herunterlädst
 3. Öffne nun den File Manager in RStudio im Fenster unten rechts
 4. Erstelle einen neuen Ordner im Stammordner (en: root directory) und nenne diesen "data" (**Tipp:** Button 'New Folder')
-5. Klicke nun im File Manager auf den Ordner um den Inhalt zu sehen 
-6. Lade die heruntergeladene CSV Datei von deinem Arbeitsgerät in die RStudio Cloud hoch (**Tipp:** Button 'Upload') und speicher sie in dem Order data
+5. Klicke nun im File Manager auf den Ordner "data" um den Inhalt zu sehen 
+6. Lade die heruntergeladene CSV Datei von deinem Arbeitsgerät in die RStudio Cloud hoch (**Tipp:** Button 'Upload') und speicher sie in dem Order "data"
 6. Nutze die Funktion `read_csv(file = "pfad/zu/daten")` um die CSV Datei in deine Arbeitsumgebung zu laden (**Tipp: Schaue im File Manager nach falls du dich nicht an den Pfad und Dateinamen erinnerst**)
 7. Speicher den Datensatz als Objekt mit dem Namen `ghg` in deiner Arbeitsumgebung (Environment) (**Tipp: Nutze den Zuweisungsoperator: <-**)
 8. Strick das Dokument und dann: git add, commit, push alle Veränderung zurück auf GitHub
@@ -72,7 +72,7 @@ ghg %>%
 
 ## Übung 3 - Tidy data (Bonus)
 
-1. Schaut euch den Datensatz nochmals genau an. Sind alle Eigenschaften vorhanden um diesen Datensatz als Tidy data beschreiben zu können?
+1. Schaut euch den Datensatz nochmals genau an. Sind alle Eigenschaften erfüllt um diesen Datensatz als Tidy data beschreiben zu können?
 
 - Eigenschaft 1: Jede Spalte ist eine Variable
 - Eigenschaft 2: Jede Reihe ist eine Beobachtung
@@ -87,7 +87,5 @@ ghg %>%
 3. Könnt ihr diesen Plot mit den Daten in dem Objekt `ghg` reproduzieren? Diskutiert und schreibt keinen Code.
 
 ```{r plot2-png}
-
 knitr::include_graphics("https://raw.githubusercontent.com/rstatsZH/data/main/plots/treibhausgasbilnaz-stadt-zuerich.png")
-
 ```
