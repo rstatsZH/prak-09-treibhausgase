@@ -49,7 +49,7 @@ Der Datensatz [Treibhausgasemissionen Stadt Zürich, ohne Klimakorrektur, 1990 -
 # Beachte: Dieser Code kann nur ausgeführt werden wenn die Daten auch in dem 
 # Ordner data mit diesem Dateinamen gespeichert wurden.
 
-ghg <- read_csv("data/ugs_treibhausgasbilanz.csv")
+ghg <- read_csv("data/ugz_treibhausgasbilanz.csv")
 
 ```
 
