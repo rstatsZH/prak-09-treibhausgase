@@ -65,8 +65,8 @@ ghg <- read_csv("data/ugz_treibhausgasbilanz.csv")
 4. Strick das Dokument und dann: git add, commit, push alle Veränderung zurück auf GitHub
 
 ```{r plot1}
-ghg %>% 
-  ggplot(aes(x = Jahr, y = Kerosin)) +
+ggplot(data = ghg,
+       mapping = aes(x = Jahr, y = Kerosin)) +
   geom_col()
 ```
 
